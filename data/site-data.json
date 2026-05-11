@@ -1,0 +1,68 @@
+{
+  "seo": {
+    "title": "木子白白白 | 个人主页",
+    "keywords": "木子白白白, 导航, 个人主页, hnlyzxf",
+    "description": "木子白白白 | 个人主页",
+    "ogTitle": "木子白白白 | 个人主页",
+    "ogDescription": "木子白白白 | 个人主页",
+    "ogUrl": "https://mzb.de5.net/"
+  },
+  "profile": {
+    "logoUrl": "https://q.qlogo.cn/g?b=qq&nk=672149402&s=640",
+    "logoAlt": "网站Logo",
+    "description": "ZhouXiaoFeng"
+  },
+  "location": {
+    "text": "中国 · 洛阳"
+  },
+  "nav": [
+    {
+      "text": "首页",
+      "href": "https://mzb.de5.net/"
+    },
+    {
+      "text": "博客",
+      "href": "https://mzb.cc.cd/"
+    },
+    {
+      "text": "抖音表情",
+      "href": "https://dy.mzb.de5.net/"
+    },
+    {
+      "text": "网盘",
+      "href": "https://pan.mzb.de5.net"
+    },
+    {
+      "text": "邮箱",
+      "href": "https://mail.mzb.de5.net/"
+    },
+    {
+      "text": "图床",
+      "href": "https://img.mzb.de5.net/"
+    },
+    {
+      "text": "提醒",
+      "href": "https://remind.mzb.de5.net/"
+    },
+    {
+      "text": "加速",
+      "href": "https://sub.mzb.de5.net/"
+    }
+  ],
+  "quote": {
+    "text": "\"滟滟随波千万里，何处春江无月明。\"",
+    "author": "[唐] 张若虚 《春江花月夜》"
+  },
+  "player": {
+    "title": "可不可以",
+    "author": "张紫豪",
+    "displayTitle": "可不可以 - 张紫豪",
+    "audioUrl": "https://cccimg.com/down.php/536fa4d184fef8fd2fba6d00efdcd0ef.mp3",
+    "lrcUrl": "https://cccimg.com/down.php/0ef03998d93309b8a3963b55139dc653.lrc",
+    "coverUrl": ""
+  },
+  "footer": {
+    "text": "© 2026 木子白白白",
+    "href": "https://github.com/hnlyzxf"
+  }
+}

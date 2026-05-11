@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>站点内容管理</title>
+    <link rel="stylesheet" href="https://font.sec.miui.com/font/css?family=MiSans:400,500,700:MiSans">
+    <link rel="stylesheet" href="css/pages/admin.css?v=20260406-1">
+</head>
+<body>
+    <div class="layout">
+        <section class="hero">
+            <h1>站点内容管理</h1>
+            <p>这个页面用于编辑和导出 <code>data/site-data.json</code>。静态站点无法直接写回服务器文件，所以导出后仍需手动替换数据文件。</p>
+            <div class="toolbar">
+                <button id="load-default" type="button">读取当前 JSON</button>
+                <label class="file-label" for="json-import">导入 JSON</label>
+                <input id="json-import" type="file" accept=".json,application/json">
+                <button id="copy-json" type="button">复制 JSON</button>
+                <button id="export-json" class="primary" type="button">导出 site-data.json</button>
+            </div>
+            <div class="status" id="status-text">等待操作</div>
+        </section>
+
+        <form id="admin-form">
+            <div class="panel-grid">
+                <section class="panel">
+                    <h2>SEO</h2>
+                    <div class="field"><label for="seo-title">页面标题</label><input id="seo-title" type="text"></div>
+                    <div class="field"><label for="seo-keywords">关键词</label><textarea id="seo-keywords"></textarea></div>
+                    <div class="field"><label for="seo-description">描述</label><textarea id="seo-description"></textarea></div>
+                    <div class="field"><label for="seo-og-title">OG 标题</label><input id="seo-og-title" type="text"></div>
+                    <div class="field"><label for="seo-og-description">OG 描述</label><textarea id="seo-og-description"></textarea></div>
+                    <div class="field"><label for="seo-og-url">OG 链接</label><input id="seo-og-url" type="url"></div>
+                </section>
+
+                <section class="panel">
+                    <h2>首页展示</h2>
+                    <div class="field"><label for="profile-logo-url">Logo 路径</label><input id="profile-logo-url" type="text"></div>
+                    <div class="field"><label for="profile-logo-alt">Logo Alt</label><input id="profile-logo-alt" type="text"></div>
+                    <div class="field"><label for="profile-description">简介文案</label><textarea id="profile-description"></textarea></div>
+                    <div class="field"><label for="location-text">位置文案</label><input id="location-text" type="text"></div>
+                    <div class="field"><label for="quote-text">名言文案</label><textarea id="quote-text"></textarea></div>
+                    <div class="field"><label for="quote-author">名言署名</label><input id="quote-author" type="text"></div>
+                </section>
+
+                <section class="panel">
+                    <h2>导航与页脚</h2>
+                    <div class="field"><label for="nav-lines">导航链接，每行一个，格式：文本|链接</label><textarea id="nav-lines"></textarea></div>
+                    <div class="field"><label for="footer-text">页脚文案</label><input id="footer-text" type="text"></div>
+                    <div class="field"><label for="footer-href">页脚链接</label><input id="footer-href" type="url"></div>
+                </section>
+
+                <section class="panel">
+                    <h2>播放器</h2>
+                    <div class="field"><label for="player-title">歌曲名</label><input id="player-title" type="text"></div>
+                    <div class="field"><label for="player-author">作者</label><input id="player-author" type="text"></div>
+                    <div class="field"><label for="player-display-title">展示标题</label><input id="player-display-title" type="text"></div>
+                    <div class="field"><label for="player-audio-url">音频路径</label><input id="player-audio-url" type="text"></div>
+                    <div class="field"><label for="player-lrc-url">歌词路径</label><input id="player-lrc-url" type="text"></div>
+                    <div class="field"><label for="player-cover-url">封面路径</label><input id="player-cover-url" type="text"></div>
+                </section>
+            </div>
+        </form>
+
+        <section class="preview">
+            <h2>导出预览</h2>
+            <pre id="json-preview"></pre>
+        </section>
+
+        <div class="tips">导航项使用“文本|链接”的格式。导出后会生成名为 <code>site-data.json</code> 的文件，请手动覆盖到 <code>data/</code> 目录。</div>
+    </div>
+
+    <script src="js/pages/admin.js?v=20260406-1"></script>
+</body>
+</html>

@@ -1,415 +1,91 @@
-
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head> 
-    <meta charset="utf-8">
-
-  <meta name="viewport" content="initial-scale=0.9, maximum-scale=1.0, minimum-scale=0.9, user-scalable=0, width=device-width">
-    
-
-    <meta itemprop="name" content="峰小站">
-
- 
-<meta itemprop="image" content="https://q1.qlogo.cn/headimg_dl?dst_uin=672149402&spec=100" />
-<meta name="description" itemprop="description" content="峰见（X0H.CN）是一个个人运营的网站，是用于个人记录学习和生活，分享高质量资源的平台，同时欢迎志同道合的朋友交流学习。" />
- 
-
-   
-	<meta name="keywords" content="X0H.CN，HNLYZXF, 峰小站">
-	
-	<meta name="description" content=""在平凡的日子里热爱生活。"">
-    <title>
-峰小站       
-    </title>
- 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width">
+    <title>加载中...</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
     <meta property="og:type" content="website">
-
-    <meta property="og:url" content="https://x0h.cn/">
-
-    <meta property="og:image" content="./assets/favicon.ico">
-
-    <meta property="og:title" content="X0H.CN">
-
-    <meta property="og:description" content="Feng_周">
-
-    <link rel="canonical" href="https://x0h.cn/">
-
-    <link rel="shortcut icon" href="./assets/favicon.ico">
-
-    <link rel="bookmark" href="./assets/favicon.ico">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="https://q1.qlogo.cn/headimg_dl?dst_uin=672149402&spec=100">
-    <link rel="stylesheet" href="./assets/style.css" media="screen" type="text/css">
-    <script src="./assets/script.js" type="text/javascript"></script>
-    
- 
-
-
-
-<script>
-	jQuery(document).ready(function() {
-	var QRBox	=	$('#QRBox');
-	var MainBox	=	$('#MainBox');
-	var AliPayQR	=	'./assets/img/zfb.jpg';
-	var WeChanQR	=	'./assets/img/wx.png';
-	var QQQR     	=	"./assets/img/qq.png";
-
-	
-
-	function showQR(QR) {
-		if (QR) {
-			MainBox.css('background-image','url('+QR+')');
-		}
-		$('#DonateText,#donateBox,#github').addClass('blur');
-		QRBox.fadeIn(300,function(argument) {
-			MainBox.addClass('showQR');
-		});
-	}
-
-	$('#donateBox>li').click(function(event) {
-		var thisID	=	$(this).attr('id');
-	if (thisID === 'AliPay') {
-			showQR(AliPayQR);
-		} else if (thisID === 'WeChat') {
-			showQR(WeChanQR);
-		} else if (thisID === 'QQ') {
-			showQR(QQQR);
-		
-		}
-	});
-
-	MainBox.click(function(event) {
-		MainBox.removeClass('showQR').addClass('hideQR');
-		setTimeout (function(a) {
-			QRBox.fadeOut(300,function(argument) {
-				MainBox.removeClass('hideQR');
-			});
-			$('#DonateText,#donateBox,#github').removeClass('blur');
-		},600);
-
-	});
-});
-</script>
-   <style>
-        .zuobiao i {
-            line-height: 1.8;
-            margin-right: 6px;
-            vertical-align: middle;
-            background-image: url(./assets/zuobiao.svg);
-            background-size: 100%;
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            margin-top: -2px;
-        }
-       
-    </style>
-    <style>
-     .user-warp img {
-            width:70px;
-            border-radius:100%;
-           }
-	    
-/*.dark-theme .user-warp img {
-            width:70px;
-            border-radius:100%;
-            animation: light 5s ease-in-out infinite;
-            transition: 0.5s;}*/
-
-
-	
-	    @keyframes light {
- 0%{box-shadow: 0 0 4px #f00;}
- 25%{box-shadow: 0 0 5px #0f0;} 
- 50%{box-shadow: 0 0 4px #00f;}
- 75%{box-shadow: 0 0 5px #0f0;} 
- 100%{box-shadow: 0 0 4px #f00;}
-}
-      </style>
-
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="bookmark" href="images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/main.css?v=20260406-9" media="screen" type="text/css">
+    <link rel="stylesheet" href="css/pages/home.css?v=20260406-1" media="screen" type="text/css">
+    <link rel="stylesheet" href="css/APlayer.min.css">
+    <link rel="stylesheet" href="https://font.sec.miui.com/font/css?family=MiSans:400,700:MiSans">
 </head>
-
 <body>
-	 
-<div class="wrapper">
-<header>
-    <nav class="navbar" id="mobile-toggle-theme">
-        <div class="container"></div>
-    </nav>
-    
-</header> 
-
-    <div class="main">
-
-        <div class="container">
-            <div class="intro" style=" line-height: 50px">
-                <div class="user-warp img"><img src="https://q1.qlogo.cn/headimg_dl?dst_uin=672149402&spec=100" alt="Feng_周"></div>
-                <div class="nickname">木子白白白</div>
-                <div class="description">
-                    <p><img alt="今日诗词" src="https://v2.jinrishici.com/one.svg?font-size=20&spacing=2&color=blue"></p>
-
-                </div>
-
-
-                <div class="zuobiao">
-                    <i class="ico_map"></i>中国 · 洛阳
-                    <span style="margin-left: 30px">
-                            <input id="switch_default" type="checkbox" class="switch_default">
-                            <label for="switch_default" class="toggleBtn"></label></span>
-                </div>
-
-
-                
-                <div class="menu navbar-right links">
-
-                    <!-- 获取页面列表 -->
-
-                    <a class="menu-item" href="https://x0h.cn/">
-                    首页</a> · 
-                       <a href="https://i.x0h.cn/">
-                      博客                        
-                    </a> · 
-                    <a href="./ai.html">
-                      AI对话                        
-                    </a> ·                    
-                    <a href="https://github.com/hnlyzxf">
-                      Github                        
-                    </a> ·                  
-                    <a class="menu-item" href="https://space.bilibili.com/25771481">
-                    B站               
-                    </a><br>
-                    <a class="menu-item" href="https://www.douyin.com/user/MS4wLjABAAAAWNwh-aszcES7zDvkLy2NF2z6D4ws3qvLcpXJpTvQHAU?previous_page=app_code_link">
-                    抖音</a> · 
-                       <a href="https://weibo.com/u/6477671540">
-                      新浪                        
-                    </a> · 
-                    <a href="https://qm.qq.com/cgi-bin/qm/qr?k=ws40KoJ5FUD3nKUTJ_Tzm8XJ2U4liYYI&noverify=0&personal_qrcode_source=4">
-                      QQ                        
-                    </a> ·                    
-                    <a href="mailto:hnlyzxf@hotmail.com">
-                      邮箱                        
-                    </a> ·                  
-                    <a class="menu-item" href="https://i.x0h.cn/about">
-                    关于                        
-                    </a>
-                    
-                    
-                    
-
-<center>
-
-<div id="header">
-</div>
-<div id="main">
-	<div class="demo">	
-        <div id="player3" class="aplayer">
-            <pre class="aplayer-lrc-content">
-                [00:00.00] 作词 : 海洋Bo
-                [00:01.00] 作曲 : 海洋Bo
-                [00:02.00] 编曲 : 王大夫
-                [00:03.00] 制作人 : 张泽宥/小贾
-                [00:13.47]编曲：王大夫
-                [00:13.47]制作人：张泽宥/小贾
-                [00:13.47]出品：网易飓风 X索尼音乐
-                [00:28.68]向云端
-                [00:35.34]山那边
-                [00:42.24]海里面
-                [00:49.14]真实的我应该走向哪边
-                [00:56.04]日落前
-                [01:02.79]风来临
-                [01:09.57]石墩下我在盘腿坐着
-                [01:15.33]人到底靠什么来定义丑恶
-                [01:23.76]神啊你在哪
-                [01:30.60]山啊我害怕
-                [01:37.56]海啊也带不走
-                [01:44.40]尽头到底有没有
-                [01:54.81]如果你很难过
-                [01:56.13]不如先收拾你的房间
-                [01:58.17]别再辗转反侧
-                [01:59.55]等会儿阳光会照在你的旁边
-                [02:01.44]没洗的别再攒着
-                [02:03.06]换个新的发型买个好看的包
-                [02:05.31]压抑焦虑心情忐忑
-                [02:06.72]就去养只爱你的猫
-                [02:11.88]不是不如意
-                [02:13.08]也许你并没围着自己的赛道走
-                [02:15.21]你真的很美丽
-                [02:16.38]为什么常说自己的外貌丑
-                [02:18.72]或许你像我一样很胖
-                [02:20.40]生活让你感到卑贱
-                [02:22.14]那么当你听到这首歌的时候
-                [02:24.36]选择与我共同蜕变
-                [02:25.74]也许你现在很难过
-                [02:27.27]也许正躺在被窝
-                [02:28.92]也许你现在很迷茫
-                [02:30.72]正在酒吧里坐着
-                [02:32.34]也许你在工作
-                [02:33.96]或者刚刚分手了
-                [02:35.64]也许你在山脚下
-                [02:37.02]会情不自禁的哼出这首歌
-                [02:38.97]向云端
-                [02:45.60]山那边
-                [02:52.53]海里面
-                [02:59.40]真实的你在于怎么选择
-                [03:06.60]神啊你在哪
-                [03:12.03]山啊我害怕
-                [03:20.40]海啊带走哀愁
-                [03:27.24]就像带走每条河流
-                [03:32.31]吉他：王大夫
-                [03:33.27]混音工程师：何世渝
-                [03:33.87]母带工程师：何世渝
-                [03:39.15]和声：小手鹅
-                [03:39.45]口琴：张德斌
-                [03:39.78]制作协力：李彦泽
-                [03:39.78]人声录音：吴身宝@Soundhub Studios
-                [03:39.78]人声录音：沈锦天@ROOM 4A
-                [03:43.95]营销：网易飓风
-                [03:44.34]企划：徐思灵
-                [03:44.67]项目统筹：宋旭辉 Shawn Song/李若嫣 Ruoyan Li
-                [03:52.38]制作统筹：赵楚峰 Chufeng Zhao
-                [03:53.01]艺人统筹：汪立宪 Vincent Wang
-                [03:53.76]监制：许雯静 Vivian Xu/刘嘉雄 Charles Liu/小贾
-                [04:02.28]总监制：陈国威 Andrew Chan/谢奇笛
-                [04:06.57]出品人：陈国威 Andrew Chan/谢奇笛 
-            </pre>
-        </div>
-	</div>
-</div>
-<script>
-	var ap3 = new APlayer({
-		element: document.getElementById('player3'),//样式1
-		narrow: false,
-		autoplay: false,
-		showlrc: true,
-		music: {
-			title: '向云端',
-			author: '小霞,海洋Bo',
-			url: 'http://music.163.com/song/media/outer/url?id=2049512697.mp3',
-			pic: 'http://p1.music.126.net/TmOHxaGnFNlwNX8aPz66oA==/109951168638913915.jpg'
-		}
-	});
-	ap3.init();
-</script>
-
-	</center>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
- 
- 
- 
- 
- 
-    <!------------------------------------------------------------------------------------------->
-    
-   
-
-
-
-
-
-	<!------------------------------------------------------------------------------------------->
-                </div>
-                <!--<div style=" line-height: 20px;font-size: 9pt;">
-                    <p>"莫愁前路无知己，天下谁人不识君。"</p>
-                        <p style="margin-left: 10rem;font-size: 8pt;"><small>      —— 高适</small></p>
-			
-			
-                </div>-->
-                
-        <br>
-                 <center>
-	<ul id="donateBox" class="list pos-f tr3">
-		<li id="AliPay">AliPay</li>
-		<li id="WeChat">WeChat</li>
-		<li id="QQ">QQ</li>
-		
-	</ul>
-	<div id="QRBox" class="pos-f left-100">
-		<div id="MainBox"></div>
-	</div>
-</center>
-
-                
-            </div>
-            
-            
-        </div>
-
-</div>
-
-<footer id="footer" class="footer">
-
-<!-- <center><a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备2022004049号-1</a></center>-->
-         	
-	 <div class="stars">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
+<div class="page-loader" id="page-loader" aria-hidden="true">
+    <div class="page-loader-inner">
+        <div class="loading-159"></div>
     </div>
-    
-    	<!------------------------------------------------------------------------------------------->
-		
-	
-	
-</footer>
-
 </div>
-
-
+<canvas id="meteorCanvas" class="meteor-shower"></canvas>
+<div class="wrapper">
+    <header>
+        <nav class="navbar" id="mobile-toggle-theme">
+            <div class="container"></div>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="container">
+            <div class="intro" style="line-height: 50px">
+                <img id="site-logo" class="logo" alt="Site Logo">
+                <div class="description">
+                    <p id="site-description">ZhouXiaoFeng</p>
+                </div>
+                <div class="zuobiao">
+                    <i class="ico_map"></i><span id="site-location">中国 · 洛阳</span>
+                    <span style="margin-left: 30px">
+                        <input id="switch_default" type="checkbox" class="switch_default">
+                        <label for="switch_default" class="toggleBtn"></label>
+                    </span>
+                </div>
+                <div id="site-nav" class="menu navbar-right links"></div>
+                <center>
+                    <div class="custom-aplayer-wrapper">
+                        <div id="player3" class="aplayer"></div>
+                        <div class="custom-aplayer-info">
+                            <div class="custom-aplayer-icon" id="custom-play-btn">
+                                <span class="play-icon">&#9654;</span>
+                            </div>
+                            <div class="custom-aplayer-title">
+                                <span id="custom-song-title">加载中...</span>
+                            </div>
+                            <div class="custom-aplayer-lrc" id="custom-lrc-display">
+                                <span>加载中...</span>
+                            </div>
+                            <div class="custom-aplayer-progress">
+                                <div class="custom-aplayer-bar">
+                                    <div class="custom-aplayer-loaded"></div>
+                                    <div class="custom-aplayer-played" id="custom-played-bar"></div>
+                                </div>
+                            </div>
+                            <div class="custom-aplayer-time">
+                                <span id="custom-current-time">00:00</span> / <span id="custom-total-time">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+                <pre id="lrc-content" style="display:none;"></pre>
+                <br>
+                <div class="quote-block">
+                    <p id="site-quote-text">"滟滟随波千万里，何处春江无月明。"</p>
+                    <p class="quote-author"><small id="site-quote-author">[唐] 张若虚 《春江花月夜》</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer">
+        <a id="footer-link" href="https://mzb.de5.net/" target="_blank" rel="noreferrer">© 2026 木子白白白</a>
+    </footer>
+</div>
+<script src="js/APlayer.min.js"></script>
+<script src="js/pages/home.js?v=20260406-1" type="text/javascript"></script>
+<script src="js/shared/theme.js?v=20260406-1" type="text/javascript"></script>
 </body>
-
 </html>
