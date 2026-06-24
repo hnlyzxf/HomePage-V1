@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>委托书</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+body{font-family:"SimSun","宋体","NSimSun","STSong","Songti SC",serif;}
+
+/* 强制文档内所有内容（含数字、英文字母）统一使用宋体 */
+.doc-page,.doc-page *{font-family:"SimSun","宋体","NSimSun","STSong","Songti SC",serif !important;}
+
+/* 文档纸张 */
+.doc-page{width:760px;min-height:1080px;color:#000;box-sizing:border-box;letter-spacing:0.05em;}
+.doc-page-1{padding:96px 120px;}
+.doc-page-2{padding:96px 56px;}
+
+/* 统一标题样式（委托书 / 身份证页保持一致） */
+.doc-title{text-align:center;font-weight:bold;font-size:32px;letter-spacing:0.2em;margin-bottom:44px;font-family:"SimSun","宋体","Songti SC",serif;}
+
+/* 在线编辑可编辑区域提示 */
+.editable{outline:1px dashed transparent;border-radius:2px;transition:outline-color .15s,background .15s;}
+.editable:hover{outline-color:#9cc4ff;}
+.editable:focus{outline:1px solid #1677ff;background:#f0f7ff;}
+
+/* 签名区域 */
+.signature-line{display:flex;justify-content:flex-end;align-items:flex-end;gap:6px;}
+.signature-display{position:relative;display:inline-block;width:160px;height:50px;border-bottom:1px solid #888;cursor:pointer;}
+.signature-display:hover{background:#f0f7ff;}
+.signature-placeholder{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#bbb;font-size:13px;font-family:"Microsoft YaHei",sans-serif;pointer-events:none;white-space:nowrap;}
+.signature-display img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;object-fit:contain;}
+
+/* 签名弹窗 */
+.sig-modal-overlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.45);font-family:"Microsoft YaHei",sans-serif;}
+.sig-modal-overlay.open{display:flex;}
+.sig-modal{width:600px;max-width:92vw;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.sig-modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #eee;font-size:17px;font-weight:bold;}
+.sig-close{background:none;border:none;font-size:24px;line-height:1;color:#999;cursor:pointer;}
+.sig-close:hover{color:#333;}
+.sig-tabs{display:flex;gap:8px;padding:14px 20px 0;}
+.sig-tab{flex:1;padding:10px;border:1px solid #d9d9d9;background:#fafafa;border-radius:6px;cursor:pointer;font-size:15px;color:#555;}
+.sig-tab.active{border-color:#1677ff;background:#f0f7ff;color:#1677ff;font-weight:bold;}
+.sig-body{padding:18px 20px;}
+.sig-modal-canvas{width:100%;height:180px;border:1px dashed #bbb;border-radius:6px;background:#fcfcfc;touch-action:none;cursor:crosshair;display:block;}
+.sig-hint{margin-top:8px;font-size:13px;color:#999;display:flex;justify-content:space-between;align-items:center;}
+.sig-link{background:none;border:none;color:#1677ff;cursor:pointer;font-size:13px;}
+.sig-link:hover{text-decoration:underline;}
+.sig-upload-area{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:220px;border:1px dashed #bbb;border-radius:6px;background:#fcfcfc;cursor:pointer;color:#999;text-align:center;}
+.sig-upload-area:hover{border-color:#1677ff;color:#1677ff;background:#f0f7ff;}
+.sig-upload-area i{font-size:34px;margin-bottom:8px;}
+.sig-upload-area img{max-width:100%;max-height:100%;object-fit:contain;}
+.sig-modal-foot{display:flex;justify-content:flex-end;gap:12px;padding:14px 20px;border-top:1px solid #eee;}
+.sig-btn{padding:8px 22px;border-radius:6px;border:1px solid #1677ff;background:#1677ff;color:#fff;font-size:15px;cursor:pointer;}
+.sig-btn:hover{background:#0958d9;}
+.sig-btn.ghost{background:#fff;color:#555;border-color:#d9d9d9;}
+.sig-btn.ghost:hover{background:#f5f5f5;}
+
+/* 身份证上传 */
+.id-card-section{margin-bottom:48px;}
+.id-card-subtitle{text-align:center;font-size:22px;font-weight:bold;margin-bottom:24px;font-family:"SimSun","宋体",serif;letter-spacing:0.05em;}
+.id-card-image-container{display:flex;justify-content:center;gap:28px;}
+.id-card-image-box{position:relative;width:300px;height:189px;border:1px solid #ccc;border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;background-color:#f9f9f9;background-repeat:no-repeat;background-position:center;background-size:cover;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.id-card-image-box:hover{border-color:#1677ff;box-shadow:0 0 0 2px rgba(22,119,255,.15);}
+.id-card-image-box .id-card-plus{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;pointer-events:none;}
+.id-card-image-box img.id-card-photo{position:relative;z-index:1;max-width:100%;max-height:100%;object-fit:contain;}
+.id-card-image-box.id-card-front{background-image:url("https://gw.alipayobjects.com/mdn/rms_5c69fa/afts/img/A*GWRhQIadSQsAAAAAAAAAAABjARQnAQ");}
+.id-card-image-box.id-card-back{background-image:url("https://gw.alipayobjects.com/mdn/rms_5c69fa/afts/img/A*syv1QJQl3rEAAAAAAAAAAABjARQnAQ");}
+.id-card-label{text-align:center;margin-top:10px;font-size:18px;}
+
+/* 顶部工具栏 */
+.toolbar{position:sticky;top:0;z-index:50;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;width:100%;padding:12px;background:rgba(255,255,255,.92);box-shadow:0 1px 6px rgba(0,0,0,.12);backdrop-filter:blur(4px);font-family:"Microsoft YaHei",sans-serif;}
+.toolbar button{padding:8px 18px;border-radius:6px;border:1px solid #1677ff;background:#1677ff;color:#fff;font-size:15px;cursor:pointer;transition:background .15s;}
+.toolbar button:hover{background:#0958d9;}
+.toolbar button.ghost{background:#fff;color:#1677ff;}
+.toolbar button.ghost:hover{background:#f0f7ff;}
+
+/* 导出时隐藏屏幕专用元素与编辑提示 */
+.exporting .no-export{display:none!important;}
+.exporting .editable{outline:none!important;background:transparent!important;}
+
+/* 移动端适配 */
+@media (max-width: 800px){
+    .doc-page{width:100%;min-height:auto;}
+    .doc-page-1{padding:48px 24px;}
+    .doc-page-2{padding:48px 16px;}
+    .doc-title{font-size:24px;margin-bottom:28px;}
+    .doc-page-1 div[style*="font-size:21px"]{font-size:17px!important;}
+    .id-card-subtitle{font-size:18px;}
+    .id-card-image-container{flex-wrap:wrap;gap:16px;}
+    .id-card-image-box{width:100%;max-width:300px;height:auto;aspect-ratio:300/189;}
+    .id-card-label{font-size:16px;}
+    .signature-display{width:140px;height:46px;}
+    .sig-modal{width:94vw;}
+    .sig-modal-canvas{height:150px;}
+    .sig-upload-area{height:150px;}
+    .toolbar button{padding:7px 14px;font-size:14px;}
+}
+</style>
+</head>
+<body class="bg-gray-200 flex flex-col items-center min-h-screen pb-10 gap-10">
+
+<!-- 工具栏 -->
+<div class="toolbar no-export">
+<button onclick="exportPDF()"><i class="fa-solid fa-file-pdf"></i> 导出 PDF</button>
+<button class="ghost" onclick="exportImages()"><i class="fa-solid fa-image"></i> 导出图片</button>
+</div>
+
+<!-- 第一页：委托书 -->
+<div class="bg-white shadow-lg doc-page doc-page-1" id="page1">
+<h1 class="doc-title">委托书</h1>
+<div class="editable" contenteditable="true" style="font-size:21px;line-height:2;text-align:justify;">
+<p style="text-indent:2em;">委托人：张三，男（女），身份证号××××××××××××××××××</p>
+<p style="text-indent:2em;">被委托人：×××，男（女），身份证号××××××××××××××××××</p>
+<p style="text-indent:2em;">因本人×××原因不能亲自前往学校办理×××××××（事情），特委托×××作为我的合法代理人全权代表我办理相关事项，对被委托人在办理上述事项过程中所签署的相关材料，我均予以认可，并承担相应责任。</p>
+</div>
+
+<div style="font-size:21px;line-height:2;padding-right:30px;margin-top:56px;">
+<div class="signature-line">
+<span>委托人：</span>
+<span class="signature-display" id="signatureDisplay" onclick="openSigModal()">
+<span class="signature-placeholder" id="signaturePlaceholder">点击此处签名</span>
+<img id="signatureImg" style="display:none;" alt="签名">
+</span>
+</div>
+<p class="editable" contenteditable="true" style="text-align:right;">××××年××月××日</p>
+</div>
+</div>
+
+<!-- 第二页：身份证上传（A4） -->
+<div class="bg-white shadow-lg doc-page doc-page-2" id="page2">
+<h1 class="doc-title">身份证</h1>
+<div class="id-card-section">
+<div class="id-card-subtitle">委托人身份证</div>
+<div class="id-card-image-container">
+<div>
+<div class="id-card-image-box id-card-front" id="delegateFrontBox">
+<img class="id-card-plus" src="https://gw.alipayobjects.com/mdn/industry_l/afts/img/A*va2XQrNYAx0AAAAAAAAAAABkARQnAQ" alt="+" crossorigin="anonymous">
+<input type="file" id="delegateFrontInput" accept="image/*" style="display:none;" onchange="handleIdCardUpload('delegateFrontBox', this.files[0])">
+</div>
+<div class="id-card-label">正面</div>
+</div>
+<div>
+<div class="id-card-image-box id-card-back" id="delegateBackBox">
+<img class="id-card-plus" src="https://gw.alipayobjects.com/mdn/industry_l/afts/img/A*va2XQrNYAx0AAAAAAAAAAABkARQnAQ" alt="+" crossorigin="anonymous">
+<input type="file" id="delegateBackInput" accept="image/*" style="display:none;" onchange="handleIdCardUpload('delegateBackBox', this.files[0])">
+</div>
+<div class="id-card-label">反面</div>
+</div>
+</div>
+</div>
+
+<div class="id-card-section">
+<div class="id-card-subtitle">代领人身份证</div>
+<div class="id-card-image-container">
+<div>
+<div class="id-card-image-box id-card-front" id="agentFrontBox">
+<img class="id-card-plus" src="https://gw.alipayobjects.com/mdn/industry_l/afts/img/A*va2XQrNYAx0AAAAAAAAAAABkARQnAQ" alt="+" crossorigin="anonymous">
+<input type="file" id="agentFrontInput" accept="image/*" style="display:none;" onchange="handleIdCardUpload('agentFrontBox', this.files[0])">
+</div>
+<div class="id-card-label">正面</div>
+</div>
+<div>
+<div class="id-card-image-box id-card-back" id="agentBackBox">
+<img class="id-card-plus" src="https://gw.alipayobjects.com/mdn/industry_l/afts/img/A*va2XQrNYAx0AAAAAAAAAAABkARQnAQ" alt="+" crossorigin="anonymous">
+<input type="file" id="agentBackInput" accept="image/*" style="display:none;" onchange="handleIdCardUpload('agentBackBox', this.files[0])">
+</div>
+<div class="id-card-label">反面</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 签名弹窗 -->
+<div class="sig-modal-overlay no-export" id="sigModal">
+<div class="sig-modal">
+<div class="sig-modal-head"><span>添加签名</span><button class="sig-close" onclick="closeSigModal()">&times;</button></div>
+<div class="sig-tabs">
+<button class="sig-tab active" id="sigTabDraw" onclick="switchSigTab('draw')">在线签名</button>
+<button class="sig-tab" id="sigTabUpload" onclick="switchSigTab('upload')">上传图片</button>
+</div>
+<div class="sig-body">
+<div class="sig-panel" id="sigPanelDraw">
+<canvas class="sig-modal-canvas" id="sigModalCanvas" width="556" height="220"></canvas>
+<div class="sig-hint"><span>请在上方区域手写签名</span><button class="sig-link" onclick="clearModalCanvas()"><i class="fa-solid fa-eraser"></i> 清除重写</button></div>
+</div>
+<div class="sig-panel" id="sigPanelUpload" style="display:none;">
+<label class="sig-upload-area" id="sigUploadArea">
+<input type="file" id="sigUploadInput" accept="image/*" style="display:none;">
+<div id="sigUploadHint"><i class="fa-solid fa-cloud-arrow-up"></i><div>点击选择签名图片</div></div>
+<img id="sigUploadPreview" style="display:none;" alt="预览">
+</label>
+</div>
+</div>
+<div class="sig-modal-foot">
+<button class="sig-btn ghost" onclick="closeSigModal()">取消</button>
+<button class="sig-btn" onclick="confirmSignature()">确认</button>
+</div>
+</div>
+</div>
+
+<script>
+/* ============ 身份证图片上传 ============ */
+function handleIdCardUpload(containerId, file){
+    const container = document.getElementById(containerId);
+    if(!container || !file) { if(container){const i=container.querySelector('input[type="file"]'); if(i)i.value='';} return; }
+    const input = container.querySelector('input[type="file"]');
+    const reader = new FileReader();
+    reader.onload = function(event){
+        // 移除提示加号与旧照片，仅保留 input；并清除身份证模板背景
+        container.querySelectorAll('img, span').forEach(el => el.remove());
+        container.style.backgroundImage = 'none';
+        const newImg = document.createElement('img');
+        newImg.className = 'id-card-photo';
+        newImg.src = event.target.result;
+        container.insertBefore(newImg, input || null);
+    };
+    reader.readAsDataURL(file);
+    if(input) input.value = '';
+}
+['delegateFrontBox','delegateBackBox','agentFrontBox','agentBackBox'].forEach(id => {
+    const box = document.getElementById(id);
+    if(box){
+        box.addEventListener('click', () => {
+            const input = box.querySelector('input[type="file"]');
+            if(input) input.click();
+        });
+    }
+});
+
+/* ============ 在线签名（弹窗：手写 / 上传） ============ */
+(function(){
+    const modal = document.getElementById('sigModal');
+    const canvas = document.getElementById('sigModalCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#111';
+    let drawing = false, drawHasContent = false, uploadDataURL = null, currentTab = 'draw';
+
+    const uploadInput = document.getElementById('sigUploadInput');
+    const uploadHint = document.getElementById('sigUploadHint');
+    const uploadPreview = document.getElementById('sigUploadPreview');
+
+    function pos(e){
+        const r = canvas.getBoundingClientRect();
+        const p = e.touches ? e.touches[0] : e;
+        return { x:(p.clientX-r.left)*(canvas.width/r.width), y:(p.clientY-r.top)*(canvas.height/r.height) };
+    }
+    function start(e){ e.preventDefault(); drawing=true; const {x,y}=pos(e); ctx.beginPath(); ctx.moveTo(x,y); drawHasContent=true; }
+    function move(e){ if(!drawing) return; e.preventDefault(); const {x,y}=pos(e); ctx.lineTo(x,y); ctx.stroke(); }
+    function end(){ drawing=false; }
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', end);
+    canvas.addEventListener('touchstart', start, {passive:false});
+    canvas.addEventListener('touchmove', move, {passive:false});
+    canvas.addEventListener('touchend', end);
+
+    window.clearModalCanvas = function(){ ctx.clearRect(0,0,canvas.width,canvas.height); drawHasContent=false; };
+
+    window.switchSigTab = function(tab){
+        currentTab = tab;
+        document.getElementById('sigTabDraw').classList.toggle('active', tab==='draw');
+        document.getElementById('sigTabUpload').classList.toggle('active', tab==='upload');
+        document.getElementById('sigPanelDraw').style.display = tab==='draw' ? '' : 'none';
+        document.getElementById('sigPanelUpload').style.display = tab==='upload' ? '' : 'none';
+    };
+
+    uploadInput.addEventListener('change', function(){
+        const file = this.files[0];
+        if(!file){ return; }
+        const reader = new FileReader();
+        reader.onload = function(ev){
+            uploadDataURL = ev.target.result;
+            uploadPreview.src = uploadDataURL;
+            uploadPreview.style.display = '';
+            uploadHint.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+        this.value = '';
+    });
+
+    window.openSigModal = function(){
+        // 重置弹窗状态
+        clearModalCanvas();
+        uploadDataURL = null;
+        uploadPreview.style.display='none'; uploadPreview.src='';
+        uploadHint.style.display='';
+        switchSigTab('draw');
+        modal.classList.add('open');
+    };
+    window.closeSigModal = function(){ modal.classList.remove('open'); };
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeSigModal(); });
+
+    window.confirmSignature = function(){
+        let dataURL = null;
+        if(currentTab === 'draw'){
+            if(!drawHasContent){ alert('请先手写签名'); return; }
+            dataURL = canvas.toDataURL('image/png');
+        } else {
+            if(!uploadDataURL){ alert('请先选择签名图片'); return; }
+            dataURL = uploadDataURL;
+        }
+        const img = document.getElementById('signatureImg');
+        const placeholder = document.getElementById('signaturePlaceholder');
+        img.src = dataURL;
+        img.style.display = '';
+        if(placeholder) placeholder.style.display = 'none';
+        closeSigModal();
+    };
+})();
+
+/* ============ 导出 PDF / 图片 ============ */
+async function renderPage(el){
+    return await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false
+    });
+}
+
+async function withExportMode(fn){
+    document.body.classList.add('exporting');
+    // 等待重排
+    await new Promise(r => setTimeout(r, 60));
+    try { await fn(); }
+    catch(err){ console.error(err); alert('导出失败：' + (err && err.message ? err.message : err)); }
+    finally { document.body.classList.remove('exporting'); }
+}
+
+function exportPDF(){
+    withExportMode(async () => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pw = pdf.internal.pageSize.getWidth();
+        const ph = pdf.internal.pageSize.getHeight();
+        const pages = [document.getElementById('page1'), document.getElementById('page2')];
+        for(let i=0;i<pages.length;i++){
+            const canvas = await renderPage(pages[i]);
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
+            // 按页面宽度铺满，等比计算高度
+            const imgH = canvas.height * pw / canvas.width;
+            if(i>0) pdf.addPage();
+            if(imgH <= ph){
+                pdf.addImage(imgData, 'JPEG', 0, 0, pw, imgH);
+            } else {
+                // 内容超过一页则等比缩放至整页高度
+                const imgW = canvas.width * ph / canvas.height;
+                pdf.addImage(imgData, 'JPEG', (pw-imgW)/2, 0, imgW, ph);
+            }
+        }
+        pdf.save('委托书.pdf');
+    });
+}
+
+function exportImages(){
+    withExportMode(async () => {
+        const pages = [
+            {el: document.getElementById('page1'), name: '委托书-委托书页.png'},
+            {el: document.getElementById('page2'), name: '委托书-身份证页.png'}
+        ];
+        for(const p of pages){
+            const canvas = await renderPage(p.el);
+            const a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = p.name;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            await new Promise(r => setTimeout(r, 300));
+        }
+    });
+}
+</script>
+</body>
+</html>
